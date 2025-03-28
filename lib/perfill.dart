@@ -20,9 +20,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   // Función para obtener datos de Supabase
   Future<void> fetchUserData() async {
     final supabase = Supabase.instance.client;
+    final userId = supabase.auth.currentUser?.id;
 
     try {
-      final response = await supabase.from('perfil_information').select().single(); // Reemplaza 'perfil' con tu tabla real
+      final response = await supabase.from('perfil_information').select().limit(1).single();
 
       if (response != null) {
         setState(() {
@@ -35,7 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               "Nacionalidad": response['nacionalidad'] ?? '',
               "Fecha de nacimiento": response['fecha_nacimiento'] ?? '',
             },
-            "Experiencia Laboral": response['experiencia'] ?? [],
+            "Experiencia Laboral": response['experiencia_laboral'] ?? 'No hay info',
             "Educación": response['educacion'] ?? [],
             "Habilidades": response['habilidades'] ?? [],
           };
@@ -51,15 +52,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        leading: Icon(Icons.person,color: Color(0xFF25AD4C),),leadingWidth: 60,
         title: Text("Información del Perfil"),
-        backgroundColor: Color(0xFF1EC250),
+        titleSpacing: 0,
+        backgroundColor: Colors.white54,
+        shadowColor: Colors.black12,
+        bottomOpacity: 1,
+        surfaceTintColor: Colors.black26,
       ),
       body: userData.isEmpty
           ? Center(child: CircularProgressIndicator()) // Muestra un indicador de carga
           : SingleChildScrollView(
         child: ExpansionPanelList(
+          dividerColor: Colors.transparent,
           animationDuration: Duration(milliseconds: 400),
-          elevation: 2,
+          elevation: 0,
           expansionCallback: (index, _) {
             setState(() {
               _expandedIndex = (_expandedIndex == index) ? null : index;
@@ -72,6 +79,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   List<ExpansionPanel> _buildPanels() {
+
     List<String> categories = userData.keys.toList();
     return List.generate(categories.length, (index) {
       String category = categories[index];
@@ -79,6 +87,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
       return ExpansionPanel(
         canTapOnHeader: true,
+        backgroundColor: Colors.white54,
         headerBuilder: (context, isExpanded) {
           return MouseRegion(
             onEnter: (_) => setState(() => _hoverIndex = index),
@@ -90,18 +99,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 });
               },
               child: Container(
+                margin: const EdgeInsets.only(),
                 padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: _hoverIndex == index ? Color(0xFF72EB90).withOpacity(0.5) : Color(0xFF25AD4C),
+                  borderRadius: BorderRadius.circular(10) ,
+                  color: _hoverIndex == index ? Color(0xFF7d19e6).withOpacity(0.6) : Color(0xFF64319b),
                 ),
                 child: Row(
                   children: [
                     Icon(
+                      // 0xFF25AD4C -> magneto green
                       isExpanded ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_right,
-                      color: Color(0xFF7401F0),
+                      color: Colors.black45,
                     ),
-                    SizedBox(width: 10),
+                   // SizedBox(width: 10),
                     Text(
                       category,
                       style: TextStyle(
@@ -116,9 +127,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           );
         },
+
         body: Container(
-          color: Color(0xFF25AD4C),
-          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+
+              color: Colors.white54, borderRadius: BorderRadius.circular(10)),
+          padding: EdgeInsets.all(0),
           child: _buildContent(content),
         ),
         isExpanded: _expandedIndex == index,

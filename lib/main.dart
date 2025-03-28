@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'perfil.dart'; // Importamos el archivo con la pantalla de perfil
+import 'perfill.dart'; // Importamos el archivo con la pantalla de perfil
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {

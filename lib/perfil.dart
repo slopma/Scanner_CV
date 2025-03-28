@@ -19,6 +19,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   // Función para obtener datos de Supabase
   Future<void> fetchUserData() async {
+
     final supabase = Supabase.instance.client;
 
 
