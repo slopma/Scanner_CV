@@ -5,10 +5,7 @@ Código de la clase:
 - 6895 (Elizabeth Suescún)
 
 Integrantes del equipo: 
-- @Alejoarteaga17
-- @AlejandraS15
-- @camila-velez
-- @slopma
+ "Co-authored-by:" Alejandroartega17
 
 > > ### **1. Clone repository from GitHub**  
 > > ```sh
