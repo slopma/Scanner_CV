@@ -19,7 +19,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final Map<String, String> fieldMapping = {
     "Nombres": "nombres",
     "Apellidos": "apellidos",
-    "Fotografía": "fotografia",
     "Dirección": "direccion",
     "Teléfono": "telefono",
     "Correo electrónico": "correo",
@@ -53,6 +52,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     "Nombres",
     "Apellidos",
     "Fecha de nacimiento",
+    "Nacionalidad",
+    "Dirección",
   };
 
   @override
@@ -138,7 +139,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     controller: _controllers[label],
                     enabled: !isDisabled,
                     style: GoogleFonts.poppins(
-                      color: isDisabled ? Colors.grey : Colors.black87,
+                      color: isDisabled ? Colors.grey  : Colors.black87,
                     ),
                     decoration: InputDecoration(
                       labelText: label,

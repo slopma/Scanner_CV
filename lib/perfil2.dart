@@ -198,12 +198,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           );
         },
-        body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            // Alineación a la izquierda
-            children: _buildContent(content),
+        body: Align(
+          alignment: Alignment.centerLeft,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start, // ya lo tenías bien
+              children: _buildContent(content),
+            ),
           ),
         ),
         isExpanded: _expandedIndex == index,
